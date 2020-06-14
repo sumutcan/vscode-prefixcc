@@ -31,4 +31,9 @@ Currenty no known issues
 * Initial release of prefix.cc
 * Prefixes are searched online.
 
+### 1.0.1
+
+* The "save document" behavior after finding a namespace removed
+* Better error handling
+
 

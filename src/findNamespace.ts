@@ -24,14 +24,14 @@ async function getNamespace(prefix: string): Promise<any> {
     return body[prefix];
 }
 
-export function nameSpace () {
+export function nameSpace() {
 
     const editor = vscode.window.activeTextEditor;
 
     if (editor) {
         const range = editor.document.getWordRangeAtPosition(editor.selection.active);
         const prefix = editor.document.getText(range);
-        findNamespace(prefix.replace("\s*\p{Punct}+\s*$",""), editor);
+        findNamespace(prefix.replace("\s*\p{Punct}+\s*$", ""), editor);
     }
 
 };
@@ -39,19 +39,27 @@ export function nameSpace () {
 
 async function findNamespace(prefix: string, editor: vscode.TextEditor) {
 
-    const nameSpaceEdit = new vscode.WorkspaceEdit();
-    
-    const namespaceUri = await getNamespace(prefix);
+    try {
+        const nameSpaceEdit = new vscode.WorkspaceEdit();
 
-    const start = editor.selection.end.character+1;
-    
-    nameSpaceEdit.insert(editor.document.uri, new vscode.Position(editor.selection.end.line, start), " <"+namespaceUri+">")
-    
-    vscode.window.showInformationMessage("Prefix.cc: "+namespaceUri);
+        const namespaceUri = await getNamespace(prefix);
 
-    vscode.workspace.applyEdit(nameSpaceEdit).then(() => {
-        editor.document.save();
-    });
+        const start = editor.selection.end.character + 1;
+
+        nameSpaceEdit.insert(editor.document.uri, new vscode.Position(editor.selection.end.line, start), " <" + namespaceUri + ">")
+
+        vscode.window.showInformationMessage("Prefix.cc: " + namespaceUri);
+
+        vscode.workspace.applyEdit(nameSpaceEdit).then(() => {
+
+        });
+    }
+    catch (ex) {
+        if (ex.response.status == 404)
+            vscode.window.showErrorMessage("Prefix.cc: No namespace for this prefix was found.");
+        else
+            vscode.window.showErrorMessage("Prefix.cc: An error occured. " + ex)
+    }
 
 
 }

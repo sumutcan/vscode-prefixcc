@@ -2,8 +2,8 @@
 	"name": "prefix-cc",
 	"displayName": "prefix.cc",
 	"description": "A prefix.cc extension for Semantic Web and Linked Data Developers",
-	"version": "1.0.0",
-	"publisher": "Umutcan Simsek",
+	"version": "1.0.1",
+	"publisher": "umutsims",
 	"license": "MIT",
 	"repository": {
 		"type": "git",
@@ -52,7 +52,6 @@
 		"glob": "^7.1.6",
 		"mocha": "^7.1.2",
 		"typescript": "^3.8.3",
-		"vscode": "^1.1.37",
 		"vscode-test": "^1.3.0",
 		"axios": "^0.19.2",
 		"@types/axios": "^0.14.0"
